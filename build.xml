@@ -1,0 +1,58 @@
+<project default="export">
+    
+    <!-- ENTER YOUR LIBRARY NAME HERE -->
+    <property name="name" value="vNESp5"/>
+
+    <path id="classpath">
+        <fileset dir="lib">
+            <include name="**/*.jar" />
+            <include name="**/*.txt" />
+        </fileset>
+    </path>
+
+    <target name="init" >
+        <echo message="init ..."/>
+        <tstamp/>
+    </target>
+
+    <target name="clean" depends="init">
+        <delete dir="build"/>
+        <delete dir="reference"/>
+        <delete file="${name}.jar"/>
+    </target>
+
+    <target name="prepare" depends="init">
+        <mkdir dir="build"/>
+    </target>
+
+    <target name="build" depends="prepare">
+        <javac srcdir="src" destdir="build" debug="true" debuglevel="lines,vars,source" encoding="latin1" classpathRef="classpath" source="1.5" target="1.5">
+            <include name="**/*.java"/>
+        </javac>
+    </target>
+
+    <target name="package" depends="build">
+        <jar destfile="${name}.jar">
+            <fileset dir="build"/>
+         </jar>
+    </target>
+
+    <target name="javadoc">
+        <javadoc sourcepath="src" 
+                 excludepackagenames="processing.core.*"
+                 defaultexcludes="yes" 
+                 destdir="reference"
+                 classpathRef="classpath">
+            
+        </javadoc>
+    </target>
+
+    <target name="export" depends="package,javadoc">
+        <zip destfile="${name}.zip">
+            <zipfileset dir="reference" prefix="${name}/reference"/>
+            <zipfileset dir="examples" prefix="${name}/examples"/>
+            <zipfileset dir="lib/" excludes="core.jar" prefix="${name}/library"/>
+            <zipfileset dir="." includes="${name}.jar" fullpath="${name}/library/${name}.jar"/>
+        </zip>        
+    </target>
+</project>
