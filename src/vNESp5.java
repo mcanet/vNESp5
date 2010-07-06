@@ -1,3 +1,4 @@
+package vNESp5;
 
 import processing.core.*;
 import vNES.InputHandler;
@@ -129,7 +130,17 @@ public class vNESp5{
     private void pressKey( int kc ) 
     {
         KbInputHandler input =  (KbInputHandler)myEmulador.nes.getGui().getJoy1();
-        input.allKeysState[input.keyMapping[kc]] = true;    
+        input.allKeysState[input.keyMapping[kc]] = true;
+
+		if (kc == input.keyMapping[InputHandler.KEY_LEFT]) {
+            input.allKeysState[input.keyMapping[InputHandler.KEY_RIGHT]] = false;
+        } else if (kc == input.keyMapping[InputHandler.KEY_RIGHT]) {
+            input.allKeysState[input.keyMapping[InputHandler.KEY_LEFT]] = false;
+        } else if (kc == input.keyMapping[InputHandler.KEY_UP]) {
+            input.allKeysState[input.keyMapping[InputHandler.KEY_DOWN]] = false;
+        } else if (kc == input.keyMapping[InputHandler.KEY_DOWN]) {
+            input.allKeysState[input.keyMapping[InputHandler.KEY_UP]] = false;
+        }
     }
     
     public void releaseKey() 
