@@ -350,6 +350,10 @@ public class NES {
         papu.setSampleRate(papu.getSampleRate(), false);
 
     }
+    
+    public int getFramerate() {
+        return Globals.preferredFrameRate;
+    }
 
     public void destroy() {
 
@@ -391,4 +395,5 @@ public class NES {
         palTable = null;
 
     }
+    
 }

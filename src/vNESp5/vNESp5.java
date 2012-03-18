@@ -19,6 +19,7 @@ import vNESp5.*;
  *  - delete the applet variables in -> readParams(), defining some safe default values 
  *  - add constructor method vNES
  *  - Globals.p = p;
+ *  - add method getFramerate()
  *  
  *  Globals.java (line: 51)
  *  - public static PApplet p;
@@ -28,6 +29,7 @@ import vNESp5.*;
  * 
  *  KbInputHandler (line 23):¼¼¼ 
  *  -  make public var: public boolean[] allKeysState;
+ * 
  * */
 
 public class vNESp5 {
@@ -37,8 +39,8 @@ public class vNESp5 {
     private Boolean start; 
     private PApplet p;
 	private keyPressAndRelease myKeyPressAndRelease[];
-	public int width;
-	public int height;
+	private int width;
+	private int height;
 	private boolean isEnabledAutoReleaseKeys;
     
     //------------------------
@@ -105,7 +107,13 @@ public class vNESp5 {
     public void draw(int x, int y) 
     {
         drawPixels(x, y);
-        //myKeyPressAndRelease.update();
+    }
+    
+    //------------------------
+    
+    public void draw(int x, int y, int width, int height) 
+    {
+        p.image(getFrameBuffer(), x, y,width,height);
     }
     
     //------------------------
@@ -465,5 +473,24 @@ public class vNESp5 {
     public void setTimeAutoRelease_KEY_RIGHT(int value)
     {
       myKeyPressAndRelease[7].setTimeAutoRelease(value);
+    }
+    
+    //------------------------
+    
+    public void setEnableSound(boolean enable)
+    {
+    	myEmulador.nes.enableSound(enable);
+    }
+    
+    //------------------------
+    
+    public void setFramerate(int rate) {
+    	myEmulador.nes.setFramerate(rate);
+    }
+    
+    //------------------------
+    
+    public int getFramerate() {
+    	return myEmulador.nes.getFramerate();
     }
 }
