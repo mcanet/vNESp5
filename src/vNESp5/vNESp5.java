@@ -5,6 +5,8 @@ import vNES.InputHandler;
 import vNES.KbInputHandler;
 import vNES.vNES;
 import vNES.*;
+import vNESp5.*;
+
 ;/*
  * vNESp5 library is written by Mar Canet (mar.canet@gmail.com)
  * This library for processing want to help do experimental games with this old games.
@@ -28,21 +30,56 @@ import vNES.*;
  *  -  make public var: public boolean[] allKeysState;
  * */
 
-public class vNESp5{
+public class vNESp5 {
 
     private vNES myEmulador;
     private PImage img;
     private Boolean start; 
     private PApplet p;
+	private keyPressAndRelease myKeyPressAndRelease[];
+	public int width;
+	public int height;
+	private boolean isEnabledAutoReleaseKeys;
+    
+    //------------------------
 
     public vNESp5(PApplet p) 
     {
         this.p = p;
-        img = p.createImage(256, 240, p.RGB);
+        width = 256;
+        height = 240;
+        img = p.createImage(width, height, p.RGB);
         myEmulador = new vNES(p);    
         myEmulador.init();
-        
+        // autoReleaseKey Settings
+        myKeyPressAndRelease = new  keyPressAndRelease[8];
+        for(int i=0;i<myKeyPressAndRelease.length;i++){
+			myKeyPressAndRelease[i] = new keyPressAndRelease(this);
+		}
+		isEnabledAutoReleaseKeys = false;
     }
+    
+	//------------------------
+    
+    public void enabledAutoReleaseKeys() 
+    {
+    	for(int i=0; i<myKeyPressAndRelease.length; i++){
+			myKeyPressAndRelease[i].start();
+		}
+		isEnabledAutoReleaseKeys = true;
+    }
+    
+    //------------------------
+    
+    public void disableAutoReleaseKeys() 
+    {
+    	for(int i=0; i<myKeyPressAndRelease.length; i++){
+			myKeyPressAndRelease[i].stop();
+		}
+		isEnabledAutoReleaseKeys = false;
+    }
+    
+    //------------------------
     
     public void loadRom( String  file) 
     {
@@ -55,31 +92,41 @@ public class vNESp5{
             myEmulador.nes.loadRom(file);
         }
     }
+    
+    //------------------------
   
     public void draw() 
     {
         drawPixels(0, 0);
     }
     
+    //------------------------
+    
     public void draw(int x, int y) 
     {
         drawPixels(x, y);
+        //myKeyPressAndRelease.update();
     }
+    
+    //------------------------
     
     private void drawPixels(int x, int y)    
     {
         updateFrameBuffer();
         p.image(img, x, y);
     }
+    
+    //------------------------
       
     public PImage getFrameBuffer() 
     {  
         return img;
     }  
     
+    //------------------------
+
     public void updateFrameBuffer() 
     {  
-        
         int pix[] = myEmulador.nes.ppu.pixelEndRender;
         img.loadPixels();
         for (int i = 0; i < img.pixels.length; i++) 
@@ -127,6 +174,8 @@ public class vNESp5{
         } 
     }
     
+    //------------------------
+
     private void pressKey( int kc ) 
     {
         KbInputHandler input =  (KbInputHandler)myEmulador.nes.getGui().getJoy1();
@@ -142,6 +191,8 @@ public class vNESp5{
             input.allKeysState[input.keyMapping[InputHandler.KEY_UP]] = false;
         }
     }
+    
+    //------------------------
     
     public void releaseKey() 
     {
@@ -167,6 +218,8 @@ public class vNESp5{
         }
     }
     
+    //------------------------
+    
     public void releaseKey( int kc) 
     {
         KbInputHandler input =  (KbInputHandler) myEmulador.nes.getGui().getJoy1();
@@ -180,35 +233,49 @@ public class vNESp5{
         pressKey( InputHandler.KEY_A );  
     }
     
+    //------------------------
+    
     public void press_KEY_B()
     {
         pressKey( InputHandler.KEY_B );
     }
+    
+    //------------------------
     
     public void press_KEY_START()
     {
         pressKey( InputHandler.KEY_START );
     }
     
+    //------------------------
+    
     public void press_KEY_SELECT()
     {
         pressKey( InputHandler.KEY_SELECT );
     }
     
+    //------------------------
+    
     public void press_KEY_UP()
     {
         pressKey( InputHandler.KEY_UP );   
     }
-    
+
+    //------------------------    
+
     public void press_KEY_DOWN()
     {
         pressKey( InputHandler.KEY_DOWN );
     }
     
+    //------------------------
+    
     public void press_KEY_LEFT()
     {
         pressKey( InputHandler.KEY_LEFT );
     }
+    
+    //------------------------
     
     public void press_KEY_RIGHT()
     {
@@ -222,38 +289,181 @@ public class vNESp5{
         releaseKey( InputHandler.KEY_A );      
     }
     
+    //------------------------
+    
     public void release_KEY_B()
     {
         releaseKey( InputHandler.KEY_B );
     }
+    
+    //------------------------
     
     public void release_KEY_START()
     {
         releaseKey( InputHandler.KEY_START );
     }
     
+    //------------------------
+    
     public void release_KEY_SELECT()
     {
         releaseKey( InputHandler.KEY_SELECT );
     }
+    
+    //------------------------
     
     public void release_KEY_UP()
     {
         releaseKey( InputHandler.KEY_UP );   
     }
     
+    //------------------------
+    
     public void release_KEY_DOWN()
     {
         releaseKey( InputHandler.KEY_DOWN );
     }
+    
+    //------------------------
     
     public void release_KEY_LEFT()
     {
         releaseKey( InputHandler.KEY_LEFT );
     }
     
+    //------------------------
+    
     public void release_KEY_RIGHT()
     {
         releaseKey( InputHandler.KEY_RIGHT );
     }    
+	
+	//------------------------
+    
+    public void pressAndRelease_KEY_SELECT()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+		myKeyPressAndRelease[0].pressAndRelease_key_SELECT();
+    }
+	
+	//------------------------
+    
+    public void pressAndRelease_KEY_START()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+      	myKeyPressAndRelease[1].pressAndRelease_key_START();
+    }
+	
+	//------------------------
+    
+    public void pressAndRelease_KEY_A()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+      	myKeyPressAndRelease[2].pressAndRelease_key_A();
+    }
+	
+	//------------------------
+    
+    public void pressAndRelease_KEY_B()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+      	myKeyPressAndRelease[3].pressAndRelease_key_B();
+    }
+	
+	//------------------------
+    
+    public void pressAndRelease_KEY_UP()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+      	myKeyPressAndRelease[4].pressAndRelease_key_UP();
+    }
+	
+	//------------------------
+    
+    public void pressAndRelease_KEY_DOWN()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+      	myKeyPressAndRelease[5].pressAndRelease_key_DOWN();
+    }
+	
+	//------------------------
+    
+    public void pressAndRelease_KEY_LEFT()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+      	myKeyPressAndRelease[6].pressAndRelease_key_LEFT();
+    }
+    
+    //------------------------
+    
+    public void pressAndRelease_KEY_RIGHT()
+    {
+    	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
+    	myKeyPressAndRelease[7].pressAndRelease_key_RIGHT();
+    }
+    
+    //------------------------
+    
+    public void setTimeAutoReleaseAllKeys(int value)
+    {
+    	for(int i=0; i<myKeyPressAndRelease.length; i++){
+			myKeyPressAndRelease[i].setTimeAutoRelease(value);
+		}
+    }
+    
+    	//------------------------
+    
+    public void setTimeAutoRelease_KEY_SELECT(int value)
+    {
+		myKeyPressAndRelease[0].setTimeAutoRelease(value);
+    }
+	
+	//------------------------
+    
+    public void setTimeAutoRelease_KEY_START(int value)
+    {
+      myKeyPressAndRelease[1].setTimeAutoRelease(value);
+    }
+	
+	//------------------------
+    
+    public void setTimeAutoRelease_KEY_A(int value)
+    {
+      myKeyPressAndRelease[2].setTimeAutoRelease(value);
+    }
+	
+	//------------------------
+    
+    public void setTimeAutoRelease_KEY_B(int value)
+    {
+      myKeyPressAndRelease[3].setTimeAutoRelease(value);
+    }
+	
+	//------------------------
+    
+    public void setTimeAutoRelease_KEY_UP(int value)
+    {
+      myKeyPressAndRelease[4].setTimeAutoRelease(value);
+    }
+	
+	//------------------------
+    
+    public void setTimeAutoRelease_KEY_DOWN(int value)
+    {
+      myKeyPressAndRelease[5].setTimeAutoRelease(value);
+    }
+	
+	//------------------------
+    
+    public void setTimeAutoRelease_KEY_LEFT(int value)
+    {
+      myKeyPressAndRelease[6].setTimeAutoRelease(value);
+    }
+    
+    //------------------------
+    
+    public void setTimeAutoRelease_KEY_RIGHT(int value)
+    {
+      myKeyPressAndRelease[7].setTimeAutoRelease(value);
+    }
 }
