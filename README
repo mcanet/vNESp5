@@ -4,4 +4,6 @@ The library want to help artist to create experimental games using old games wit
 More information and documentation in:
 http://mcanet.info/vNESp5/
 
+Library is base in vNes emulator release first version in June 2006 by Jamie Sanders (http://www.thatsanderskid.com/programming/vnes/)
+
 Note: Any rom file is included in examples. To use example add the file of the NES rom game in the data folder.
