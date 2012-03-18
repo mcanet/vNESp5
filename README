@@ -6,4 +6,4 @@ http://mcanet.info/vNESp5/
 
 Library is base in vNes emulator release first version in June 2006 by Jamie Sanders (http://www.thatsanderskid.com/programming/vnes/)
 
-Note: Any rom file is included in examples. To use example add the file of the NES rom game in the data folder.
+Note: Any rom file is included in the code examples. Before use an example add the file of the NES rom game in the data folder.
