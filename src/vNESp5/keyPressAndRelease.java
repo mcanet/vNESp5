@@ -103,7 +103,7 @@ class keyPressAndRelease extends Thread{
                if(releaseKeyB){      myEmulador.release_KEY_B();      releaseKeyB = false; }
                if(releaseKeySTART){  myEmulador.release_KEY_START();  releaseKeySTART = false; }
                if(releaseKeySELECT){ myEmulador.release_KEY_SELECT(); releaseKeySELECT = false;  }
-               
+               Thread.sleep(150);
              }catch(InterruptedException e) {
                e.printStackTrace();
                Thread.currentThread().interrupt();

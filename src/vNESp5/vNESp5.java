@@ -113,6 +113,7 @@ public class vNESp5 {
     
     public void draw(int x, int y, int width, int height) 
     {
+        updateFrameBuffer();
         p.image(getFrameBuffer(), x, y,width,height);
     }
     
