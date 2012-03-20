@@ -23,11 +23,17 @@ class keyPressAndRelease extends Thread{
         
         boolean running = true;
         int timeAutoReleaseKey = 150;
+        int timeAutoPressKey = 150;
         
         vNESp5 myEmulador;
         
         public keyPressAndRelease(vNESp5 _myEmulador){
             myEmulador = _myEmulador;
+        }
+        
+        public void setTimeAutoPress(int value)
+        {
+          timeAutoPressKey = value;
         }
         
         public void setTimeAutoRelease(int value)
@@ -92,7 +98,7 @@ class keyPressAndRelease extends Thread{
                if(pressKeySELECT){   myEmulador.press_KEY_SELECT(); pressKeySELECT = false; releaseKeySELECT= true; }
                
                // Time wait to release the key
-               Thread.sleep(timeAutoReleaseKey);
+               Thread.sleep(timeAutoPressKey);
                
                //RELEASE KEYS
                if(releaseKeyLEFT){   myEmulador.release_KEY_LEFT();   releaseKeyUP = false;}       
@@ -103,7 +109,7 @@ class keyPressAndRelease extends Thread{
                if(releaseKeyB){      myEmulador.release_KEY_B();      releaseKeyB = false; }
                if(releaseKeySTART){  myEmulador.release_KEY_START();  releaseKeySTART = false; }
                if(releaseKeySELECT){ myEmulador.release_KEY_SELECT(); releaseKeySELECT = false;  }
-               Thread.sleep(150);
+               Thread.sleep(timeAutoReleaseKey);
              }catch(InterruptedException e) {
                e.printStackTrace();
                Thread.currentThread().interrupt();

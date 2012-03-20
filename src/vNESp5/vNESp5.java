@@ -410,6 +410,15 @@ public class vNESp5 {
     	if(!isEnabledAutoReleaseKeys) enabledAutoReleaseKeys();
     	myKeyPressAndRelease[7].pressAndRelease_key_RIGHT();
     }
+   
+    //------------------------
+    
+    public void setTimeAutoPressAllKeys(int value)
+    {
+    	for(int i=0; i<myKeyPressAndRelease.length; i++){
+    	    myKeyPressAndRelease[i].setTimeAutoPress(value);
+		}
+    }
     
     //------------------------
     
@@ -422,58 +431,66 @@ public class vNESp5 {
     
     	//------------------------
     
-    public void setTimeAutoRelease_KEY_SELECT(int value)
+    public void setTimeAutoPressAndRelease_KEY_SELECT(int valuePress, int valueRelease)
     {
-		myKeyPressAndRelease[0].setTimeAutoRelease(value);
+		myKeyPressAndRelease[0].setTimeAutoPress(valuePress);
+		myKeyPressAndRelease[0].setTimeAutoRelease(valueRelease);
     }
 	
 	//------------------------
     
-    public void setTimeAutoRelease_KEY_START(int value)
+    public void setTimeAutoPressAndRelease_KEY_START(int valuePress, int valueRelease)
     {
-      myKeyPressAndRelease[1].setTimeAutoRelease(value);
+      myKeyPressAndRelease[1].setTimeAutoPress(valuePress);
+      myKeyPressAndRelease[1].setTimeAutoRelease(valueRelease);
     }
 	
 	//------------------------
     
-    public void setTimeAutoRelease_KEY_A(int value)
+    public void setTimeAutoPressAndRelease_KEY_A(int valuePress, int valueRelease)
     {
-      myKeyPressAndRelease[2].setTimeAutoRelease(value);
+      myKeyPressAndRelease[2].setTimeAutoPress(valuePress);
+      myKeyPressAndRelease[2].setTimeAutoRelease(valueRelease);
     }
 	
 	//------------------------
     
-    public void setTimeAutoRelease_KEY_B(int value)
+    public void setTimeAutoPressAndRelease_KEY_B(int valuePress, int valueRelease)
     {
-      myKeyPressAndRelease[3].setTimeAutoRelease(value);
+      myKeyPressAndRelease[3].setTimeAutoPress(valuePress);
+      myKeyPressAndRelease[3].setTimeAutoRelease(valueRelease);
     }
 	
 	//------------------------
     
-    public void setTimeAutoRelease_KEY_UP(int value)
+    public void setTimeAutoPressAndRelease_KEY_UP(int valuePress, int valueRelease)
     {
-      myKeyPressAndRelease[4].setTimeAutoRelease(value);
+      myKeyPressAndRelease[4].setTimeAutoPress(valuePress);
+      myKeyPressAndRelease[4].setTimeAutoRelease(valueRelease);
     }
 	
 	//------------------------
     
-    public void setTimeAutoRelease_KEY_DOWN(int value)
+    public void setTimeAutoPressAndRelease_KEY_DOWN(int valuePress, int valueRelease)
     {
-      myKeyPressAndRelease[5].setTimeAutoRelease(value);
+      myKeyPressAndRelease[5].setTimeAutoRelease(valuePress);
+      myKeyPressAndRelease[5].setTimeAutoRelease(valueRelease);
     }
 	
 	//------------------------
     
-    public void setTimeAutoRelease_KEY_LEFT(int value)
+    public void setTimeAutoPressAndRelease_KEY_LEFT(int valuePress, int valueRelease)
     {
-      myKeyPressAndRelease[6].setTimeAutoRelease(value);
+      myKeyPressAndRelease[6].setTimeAutoPress(valuePress);
+      myKeyPressAndRelease[6].setTimeAutoRelease(valueRelease);
     }
     
     //------------------------
     
-    public void setTimeAutoRelease_KEY_RIGHT(int value)
+    public void setTimeAutoPressAndRelease_KEY_RIGHT(int valuePress, int valueRelease)
     {
-      myKeyPressAndRelease[7].setTimeAutoRelease(value);
+      myKeyPressAndRelease[7].setTimeAutoPress(valuePress);
+      myKeyPressAndRelease[7].setTimeAutoRelease(valueRelease);
     }
     
     //------------------------
