@@ -1,16 +1,23 @@
 import vNES.*;
 import vNESp5.*;
+import processing.serial.*;
 
 vNESp5 myEmulador;
 PImage pg;
 boolean  started;
 
+Serial myPort;  // Create object from Serial class
+int val;      // Data received from the serial port
+
 void setup()
 {
-  size(1024,768);
+  size(800,600);
 
   myEmulador = new vNESp5(this);
   myEmulador.loadRom("SuperMarioBros-DuckHunt.nes");  
+  
+  String portName = Serial.list()[0];
+  myPort = new Serial(this, portName, 9600);
 }
 
 //----------------------------------------------------
@@ -22,13 +29,27 @@ void draw()
   myEmulador.updateFrameBuffer();
   pg = myEmulador.getFrameBuffer();
   image(pg,0,0,width,height);
+ 
+  while( myPort.available() > 0) {  // If data is available,
+    val = myPort.read();
+      if (val == 'R') {
+      myEmulador.pressAndRelease_KEY_RIGHT();
+      }    // read it and store it in val
+      //myPort.clear();
   
-  if(keyPressed && key=='s'){
-    myEmulador.pressAndRelease_KEY_LEFT();
+  
+  if (val == 'L') {
+      myEmulador.pressAndRelease_KEY_LEFT();
+      }    // read it and store it in val
+      //myPort.clear();
   }
-  if(keyPressed && key=='d'){
-    myEmulador.pressAndRelease_KEY_RIGHT();
-  }
+ // }
+  //if(keyPressed && key=='s'){
+   // myEmulador.pressAndRelease_KEY_LEFT();
+  //}
+ // if(keyPressed && key=='d'){
+   // myEmulador.pressAndRelease_KEY_RIGHT();
+  //ss}
   if(keyPressed && key=='e'){
     myEmulador.pressAndRelease_KEY_UP();
   }
@@ -74,4 +95,3 @@ void startGame()
 }
 
 //----------------------------------------------------
-
