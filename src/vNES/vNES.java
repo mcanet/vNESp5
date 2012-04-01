@@ -346,4 +346,8 @@ public class vNES extends Applet implements Runnable {
         Globals.keycodes.put("VK_PERIOD", 46);
         Globals.keycodes.put("VK_SLASH", 47);
     }
+    
+    public void setSoundBufferTimeToSleep(int value){
+    	Globals.soundBufferTimeToSleep = value;
+    }
 }

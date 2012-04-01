@@ -58,17 +58,20 @@ public class AppletUI implements UI {
         // Sound stuff:
         int tmp = nes.getPapu().bufferIndex;
         if (Globals.enableSound && Globals.timeEmulation && tmp > 0) {
+			if( Globals.soundBufferTimeToSleep == -1 ){
+            	int min_avail = nes.getPapu().line.getBufferSize() - 4 * tmp;
 
-            int min_avail = nes.getPapu().line.getBufferSize() - 4 * tmp;
-
-            long timeToSleep = nes.papu.getMillisToAvailableAbove(min_avail);
-            do {
+            	long timeToSleep = nes.papu.getMillisToAvailableAbove(min_avail);
+            	do {
+                		try {
+                    		Thread.sleep(timeToSleep);
+                		} catch (InterruptedException e) {}
+            	} while ((timeToSleep = nes.papu.getMillisToAvailableAbove(min_avail)) > 0);
+			}else{
                 try {
-                    Thread.sleep(timeToSleep);
-                } catch (InterruptedException e) {
-                }
-            } while ((timeToSleep = nes.papu.getMillisToAvailableAbove(min_avail)) > 0);
-
+                	Thread.sleep(Globals.soundBufferTimeToSleep);
+            	} catch (InterruptedException e) {}   	
+            }
             nes.getPapu().writeBuffer();
 
         }

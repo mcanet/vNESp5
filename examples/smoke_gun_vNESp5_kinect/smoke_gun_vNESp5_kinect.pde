@@ -28,7 +28,7 @@ void setup()
   myEmulator = new vNESp5(this);
   myEmulator.loadRom("Gun Smoke (E).nes");
   // key set times
-  myEmulator.setTimeAutoPressAndRelease_KEY_START(350, 50);
+  myEmulator.setTimeAutoPressAndRelease_KEY_START(350, 150);
   myEmulator.setTimeAutoPressAndRelease_KEY_A(350, 50);
   myEmulator.setTimeAutoPressAndRelease_KEY_B(350, 50);
   myEmulator.setEnableSound(false);
