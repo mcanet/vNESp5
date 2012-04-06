@@ -14,3 +14,7 @@ We had detect problems in some linux distributions like ubuntu 10.10, but there 
 1. You have to add in the example setup: myEmulador.setSoundBufferFixTimeToSleep(8);
 2. Rename the java directory in the processing directory to something else to make processing look for the  java jdk installed on Ubuntu, in my case openjdk6.
 
+NOTE: If you do want to use the java that processing comes with, do not rename the java directory in processing,  install openjdk6 and do the following:
+
+cp /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libpulse-java.so PROCESSING_DIR/java/lib/i386
+cp /usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar      PROCESSING_DIR/java/lib/ext
