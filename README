@@ -1,10 +1,10 @@
-vNESp5 is a library for processing(http://processing.org) for Nintendo NES emulator. 
-The library want to help artist to create experimental games using old games with new interfaces.
+vNESp5 is a library integrating the "processing" programming language (http://processing.org) with a Nintendo NES emulator. 
+The library is intended to help artists to create experimental games by using old games with new interfaces.
 
 More information and documentation in:
 http://mcanet.info/vNESp5/
 
-Library is base in vNes emulator release first version in June 2006 by Jamie Sanders (http://www.thatsanderskid.com/programming/vnes/)
+The library is based on vNes emulator release first version in June 2006 by Jamie Sanders (http://www.thatsanderskid.com/programming/vnes/)
 
 Note: Any rom file is included in the code examples. Before use an example add the file of the NES rom game in the data folder.
 
